@@ -1,4 +1,5 @@
 import copy
+import itertools
 import pathlib
 import re
 
@@ -13,27 +14,83 @@ class Site:
         if not root_path.is_dir():
             raise ValueError(f"Invalid path. root_path: {root_path}")
 
+        self._root_path = root_path
         self._nodes = {}
 
-        for yaml_path in root_path.glob("**/_*.yaml"):
-            html_name = yaml_path.name[1:-4] + "html"
-            html_path = yaml_path.with_name(html_name)
-
-            with (root_path / yaml_path).open("r") as yaml_file:
-                content = yaml.safe_load(yaml_file)
-
-            if content.get("type") == "data":
-                node = DataNode(html_path, content)
-            else:
-                node = BaseNode(root_path, html_path, Node.create(html_path, content))
-
-            self._nodes[node.path] = node
+        self.create_base_nodes()
+        self.create_index_nodes()
 
     def get_attr(self, path: str) -> dict:
         if path not in self._nodes:
             raise ValueError(f"Invalid path. path: {path}")
 
         return self._nodes[path].attr
+
+    def create_base_nodes(self) -> None:
+        for yaml_path in self._root_path.glob("**/_*.yaml"):
+            html_name = yaml_path.name[1:-4] + "html"
+            html_path = yaml_path.with_name(html_name)
+
+            with (self._root_path / yaml_path).open("r") as yaml_file:
+                content = yaml.safe_load(yaml_file)
+
+            if content.get("type") != "data":
+                content = {
+                    **copy.deepcopy(content),
+                    "type": "base",
+                    "root_path": self._root_path,
+                    "children": [content],
+                }
+
+            node = Node.create(html_path, content)
+
+            self._nodes[node.path] = node
+
+    def create_index_nodes(self) -> None:
+        indexes = self.get_attr("/site.html").get("indexes", [])
+
+        for index in indexes:
+            page_root = index.get("path")
+            page_size = index.get("page_size", 20)
+
+            post_nodes = [
+                self._nodes[path]
+                for path in filter(lambda path: path.startswith(page_root), self._nodes)
+            ]
+
+            post_nodes.sort(key=lambda node: node.attr.get("date"), reverse=True)
+
+            if post_nodes:
+                (pathlib.Path("." + page_root) / "indexes").mkdir(parents=True, exist_ok=True)
+
+            page_links = [
+                f"{page_root}indexes/index_{i}.html"
+                for i, _ in enumerate(range(0, len(post_nodes), page_size))]
+
+            for i, chunked_post_nodes in enumerate(itertools.batched(post_nodes, page_size)):
+                data = {
+                    "type": "base",
+                    "root_path": self._root_path,
+                    "children": [
+                        {
+                            "type": "post_list",
+                            "post_nodes": chunked_post_nodes,
+                            "page_index": i,
+                            "page_links": page_links,
+                        }
+                    ],
+                }
+
+                if index.get("home", False) and i == 0:
+                    node = Node.create(pathlib.Path("./index.html"), copy.deepcopy(data))
+
+                    self._nodes[node.path] = node
+
+                index_path = pathlib.Path("." + page_root) / "indexes" / f"index_{i}.html"
+
+                node = Node.create(index_path, data)
+
+                self._nodes[node.path] = node
 
 
 class Node:
@@ -120,12 +177,10 @@ class DataNode(Node):
 @Node.register
 class BaseNode(Node):
 
-    def __init__(self, root_path: pathlib.Path, html_path: pathlib.Path, child: Node) -> None:
-        super().__init__(html_path, {})
+    def __init__(self, path: pathlib.Path, data: dict) -> None:
+        super().__init__(path, data)
 
-        self._root_path = root_path
-        self._html_path = html_path
-        self._children = [child]
+        self._html_path = data.get("root_path") / path
 
     def render(self, site: Site) -> str:
         head = HeadNode("/", {}).render(site)
@@ -151,7 +206,7 @@ class BaseNode(Node):
 
         html = bs4.BeautifulSoup(html, "html.parser").prettify(formatter=html_formatter)
 
-        with (self._root_path / self._html_path).open("w") as html_file:
+        with (self._html_path).open("w") as html_file:
             html_file.write(html)
 
         return html
@@ -290,7 +345,34 @@ class FooterNode(Node):
 
 @Node.register
 class PageNode(Node):
-    pass
+    def render(self, site: Site) -> str:
+        title = self.attr.get("title")
+        authors = self.attr.get("authors", [])
+        tags = self.attr.get("tags", [])
+
+        authors = (", " if authors else "").join(authors)
+        tags = map(lambda tag: f"""<span class="badge rounded-pill text-bg-info">{tag}</span>""", tags)
+        tags = (" " if tags else "").join(tags)
+
+        content = super().render(site)
+
+        return f"""
+            <h1>{title}</h1>
+
+            <div class="mb-4">
+                <span>
+                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    {authors}
+                </span>
+
+                <span class="ms-3">
+                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    {tags}
+                </span>
+            </div>
+
+            {content}
+        """
 
 
 @Node.register
@@ -386,6 +468,84 @@ class ImgNode(Node):
         src = attr.get("src", "#")
         alt = attr.get("alt", "")
         return f"""<img src="{src}" class="img-fluid w-100 rounded pb-4" alt="{alt}">"""
+
+
+@Node.register
+class PostListNode(Node):
+    def render(self, site: Site) -> str:
+        attr = self.attr
+
+        post_nodes = attr.get("post_nodes", [])
+        page_index = attr.get("page_index", 0)
+        page_links = attr.get("page_links", [])
+
+        post_list = "".join([
+            f"""
+            <div class="mb-4">
+                <a class="text-decoration-none" href="{post_node.path}">
+                    <h2 class="card-title mb-1">{post_node.attr.get("title")}</h2>
+
+                    <span>
+                        <i class="bi bi-calendar-event me-1" style="font-size: 1rem; color: cornflowerblue;"></i>
+                        {post_node.attr.get("date")}
+                    </span>
+                    <span class="mx-1">By</span>
+                    <span>
+                        <i class="bi bi-person mx-1" style="font-size: 1rem; color: cornflowerblue;"></i>
+                        {", ".join(post_node.attr.get("authors", []))}
+                    </span>
+                </a>
+            </div>
+            """
+            for post_node in post_nodes
+        ])
+
+        if len(page_links) > 1:
+            pagination_list = "".join([
+                f"""
+                <li class="page-item {'active' if index == page_index else ''}">
+                    <a class="page-link" href="{link}">{index}</a>
+                </li>
+                """
+                for index, link in enumerate(page_links)
+            ])
+
+            if page_index > 0:
+                prev_link = page_links[page_index - 1]
+                prev_enabled = ""
+            else:
+                prev_link = "#"
+                prev_enabled = "disabled"
+
+            if page_index < len(page_links) - 1:
+                next_link = page_links[page_index + 1]
+                next_enabled = ""
+            else:
+                next_link = "#"
+                next_enabled = "disabled"
+
+            pagination = f"""
+                <hr class="my-4">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link {prev_enabled}" href="{prev_link}">&laquo;</a>
+                        </li>
+                        {pagination_list}
+                        <li class="page-item">
+                            <a class="page-link {next_enabled}" href="{next_link}">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+            """
+        else:
+            pagination = ""
+
+        return f"""
+            <h3 class="mb-4">Posts</h3>
+            {post_list}
+            {pagination}
+        """
 
 
 @Node.register
