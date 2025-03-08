@@ -1,0 +1,46 @@
+
+type: page
+title: Timeline
+authors:
+  - BoboNana
+children:
+  - type: timeline
+    children:
+      - type: timeline_item
+        icon: 🌲
+        name: 大小鬼瀑布
+        date: "2024-05-26"
+        pict: 20240526.jpg
+        text: 大小鬼瀑布
+      - type: timeline_item
+        icon: 🏞️
+        name: 合歡山
+        date: "2023-06-07"
+        pict: 20230607.jpg
+        text: 合歡山
+      - type: timeline_item
+        icon: 🏕️
+        name: 瓦拉米
+        date: "2023-05-02"
+        pict: 20230502.jpg
+        text: 瓦拉米
+      - type: timeline_item
+        icon: 🏕️
+        name: 桶後越嶺
+        date: "2023-04-03"
+        pict: 20230404.jpg
+        text: 桶後越嶺
+      - type: timeline_item
+        icon: 🏞️
+        name: 阿里山
+        date: "2022-08-10"
+        pict: 20220812.jpg
+        text: 阿里山
+      - type: timeline_item
+        icon: 🏞️
+        name: 花東之旅
+        date: "2022-04-27"
+        pict: 20220429.jpg
+        text: 花東之旅
+      - type: timeline_item
+        icon: 👩‍❤️‍💋‍👨
