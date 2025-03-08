@@ -1,0 +1,13 @@
+type: data
+name: "Bobo & Nana"
+pages:
+  - name: "Trekking"
+    list:
+      - name: 離線地圖
+        link: "/trekking/offline-map/index.html"
+  - name: "Timelines"
+    list:
+      - name: "Bobo & Nana"
+        link: "/timelines/bobonana/index.html"
+  - name: "About"
+    link: "/about.html"
