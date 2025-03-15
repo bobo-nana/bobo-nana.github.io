@@ -1,0 +1,95 @@
+type: post
+date: 2022-03-05
+title: "Showroom: Post"
+tags:
+  - 100 mountains
+  - sketch
+authors:
+  - Ironhead
+  - Nina
+children:
+  # comment
+  - type: h1
+    text: H1
+  - type: h2
+    text: H2
+  - type: h3
+    text: H3
+  - type: h4
+    text: H4
+  - type: h5
+    text: H5
+  - type: h6
+    text: H6
+  - type: divider
+
+  - type: figure
+    src: panorama.jpg
+    caption: 大霸尖山 & 小霸尖山
+  - type: divider
+
+  - type: timeline
+    children:
+      - type: timeline_item
+        icon: 🌞
+        name: 大小鬼瀑布
+        time: "06:00"
+        children:
+          - type: figure
+            src: 20240526.jpg
+            caption: 天氣好到衣服沒乾過！
+          - type: p
+            text: 天氣好到衣服沒乾過！
+      - type: timeline_item
+        icon: 🏕️
+        name: 瓦拉米
+        date: "2023-05-02"
+        children:
+          - type: figure
+            src: 20230502.jpg
+            caption: 瓦拉米
+      - type: timeline_item
+        icon: 🏕️
+        name: 桶後越嶺
+        date: "2023-04-04"
+        time: "07:00"
+        children:
+          - type: figure
+            src: 20230404.jpg
+            caption: 早餐中
+
+  - type: divider
+
+  - type: table
+    mods:
+      - striped
+      - hover
+      - bordered
+    data:
+      head:
+        - A
+        - B
+        - C
+        - D
+      body:
+        -
+          - E
+          - F
+          - G
+          - H
+        -
+          - I
+          - J
+          - K
+          - L
+        -
+          - M
+          - N
+          - O
+          - P
+        -
+          - Q
+          - R
+          - S
+          - T
+  - type: divider
