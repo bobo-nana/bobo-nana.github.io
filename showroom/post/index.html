@@ -37,6 +37,18 @@
                 top: 0;
             }
 
+            .timeline .timeline-item:last-child:before {
+                content: '';
+                position: absolute;
+                left: -38px;
+                bottom: 0;
+                width: 11px;
+                height: 11px;
+                border-radius: 50%;
+                background-color: hsl(217, 88.2%, 30%);
+                border: 1px solid hsl(217, 88.2%, 60%);
+            }
+
             .timeline .timeline-icon {
                 position: absolute;
                 left: -48px;
@@ -102,8 +114,8 @@
                 Showroom: Post
             </h1>
             <div class="mb-4">
-                <span>
-                    <i class="bi bi-calendar-event" style="font-size: 1rem; color: cornflowerblue;">
+                <span class="text-muted pb-2">
+                    <i class="bi bi-calendar-event me-1" style="font-size: 1rem; color: cornflowerblue;">
                     </i>
                     2022-03-05
                 </span>
@@ -142,61 +154,80 @@
                 H6
             </h6>
             <hr class="my-4"/>
-            <img alt="大霸尖山 & 小霸尖山" class="img-fluid w-100 rounded pb-4" src="panorama.jpg"/>
+            <figure class="figure w-100 mb-3">
+                <img alt="大霸尖山 & 小霸尖山" class="figure-img img-fluid w-100 rounded" src="panorama.jpg"/>
+                <figcaption class="figure-caption">
+                    大霸尖山 & 小霸尖山
+                </figcaption>
+            </figure>
             <hr class="my-4"/>
             <div class="py-5">
                 <ul class="timeline">
-                    <li class="timeline-item mb-5">
+                    <li class="timeline-item mb-4">
                         <span class="timeline-icon">
                             🌞
                         </span>
                         <h5 class="fw-bold">
                             大小鬼瀑布
                         </h5>
-                        <p class="text-muted pb-2 fw-bold">
-                            <i class="bi bi-clock" style="font-size: 1rem; color: dimgrey;">
+                        <span class="text-muted pb-2">
+                            <i class="bi bi-clock me-1" style="font-size: 1rem; color: cornflowerblue;">
                             </i>
                             06:00
-                        </p>
-                        <img alt="天氣好到衣服沒乾過！" class="img-fluid w-100 rounded pb-4" src="20240526.jpg"/>
-                        <p>
+                        </span>
+                        <div class="mb-3">
+                        </div>
+                        <figure class="figure w-100 mb-3">
+                            <img alt="天氣好到衣服沒乾過！" class="figure-img img-fluid w-100 rounded" src="20240526.jpg"/>
+                            <figcaption class="figure-caption">
+                                天氣好到衣服沒乾過！
+                            </figcaption>
+                        </figure>
+                        <p class="mb-3">
                             天氣好到衣服沒乾過！
                         </p>
                     </li>
-                    <li class="timeline-item mb-5">
+                    <li class="timeline-item mb-4">
                         <span class="timeline-icon">
                             🏕️
                         </span>
                         <h5 class="fw-bold">
                             瓦拉米
                         </h5>
-                        <p class="text-muted pb-2 fw-bold">
-                            <i class="bi bi-calendar-event" style="font-size: 1rem; color: dimgrey;">
+                        <span class="text-muted pb-2">
+                            <i class="bi bi-calendar-event me-1" style="font-size: 1rem; color: cornflowerblue;">
                             </i>
                             2023-05-02
-                        </p>
-                        <img alt="" class="img-fluid w-100 rounded pb-4" src="20230502.jpg"/>
+                        </span>
+                        <div class="mb-3">
+                        </div>
+                        <figure class="figure w-100 mb-3">
+                            <img alt="瓦拉米" class="figure-img img-fluid w-100 rounded" src="20230502.jpg"/>
+                            <figcaption class="figure-caption">
+                                瓦拉米
+                            </figcaption>
+                        </figure>
                     </li>
-                    <li class="timeline-item mb-5">
+                    <li class="timeline-item mb-4">
                         <span class="timeline-icon">
                             🏕️
                         </span>
                         <h5 class="fw-bold">
                             桶後越嶺
                         </h5>
-                        <p class="text-muted pb-2 fw-bold">
-                            <i class="bi bi-calendar-event" style="font-size: 1rem; color: dimgrey;">
+                        <span class="text-muted pb-2">
+                            <i class="bi bi-calendar-event me-1" style="font-size: 1rem; color: cornflowerblue;">
                             </i>
                             2023-04-04 07:00
-                        </p>
-                        <img alt="早餐中" class="img-fluid w-100 rounded pb-4" src="20230404.jpg"/>
-                    </li>
-                    <li class="timeline-item mb-5">
-                        <span class="timeline-icon">
-                            👩‍❤️‍💋‍👨
                         </span>
-                        <p class="text-muted pb-2 fw-bold">
-                        </p>
+                        <div class="mb-3">
+                        </div>
+                        <figure class="figure w-100 mb-3">
+                            <img alt="早餐中" class="figure-img img-fluid w-100 rounded" src="20230404.jpg"/>
+                            <figcaption class="figure-caption">
+                                早餐中
+                            </figcaption>
+                        </figure>
                     </li>
                 </ul>
             </div>
