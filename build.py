@@ -360,12 +360,32 @@ class FooterNode(Node):
 class PageNode(Node):
     def render(self, site: Site) -> str:
         title = self.attr.get("title")
-        authors = self.attr.get("authors", [])
-        tags = self.attr.get("tags", [])
 
-        authors = (", " if authors else "").join(authors)
-        tags = map(lambda tag: f"""<span class="badge rounded-pill text-bg-info">{tag}</span>""", tags)
-        tags = (" " if tags else "").join(tags)
+        if authors := self.attr.get("authors", []):
+            authors = ", ".join(authors)
+
+            html_authors = f"""
+                <span>
+                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    {authors}
+                </span>
+            """
+        else:
+            html_authors = ""
+
+        if tags := self.attr.get("tags"):
+            tags = " ".join(
+                f"<span class=\"badge rounded-pill text-bg-info\">{tag}</span>"
+                for tag in tags)
+
+            html_tags = f"""
+                <span class="ms-3">
+                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    {tags}
+                </span>
+            """
+        else:
+            html_tags = ""
 
         content = super().render(site)
 
@@ -373,15 +393,8 @@ class PageNode(Node):
             <h1>{title}</h1>
 
             <div class="mb-4">
-                <span>
-                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;"></i>
-                    {authors}
-                </span>
-
-                <span class="ms-3">
-                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;"></i>
-                    {tags}
-                </span>
+                {html_authors}
+                {html_tags}
             </div>
 
             {content}
