@@ -7,7 +7,7 @@ authors:
   - Ironhead
 children:
   - type: h2
-    data: 記錄
+    text: 記錄
 
   - type: timeline
     children:
