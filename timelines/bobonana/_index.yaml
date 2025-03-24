@@ -10,37 +10,51 @@ children:
         icon: 🌲
         name: 大小鬼瀑布
         date: "2024-05-26"
-        pict: 20240526.jpg
-        text: 大小鬼瀑布
+        children:
+          - type: figure
+            src: 20240526.jpg
+            caption: 大小鬼瀑布
       - type: timeline_item
         icon: 🏞️
         name: 合歡山
         date: "2023-06-07"
-        pict: 20230607.jpg
-        text: 合歡山
+        children:
+          - type: figure
+            src: 20230607.jpg
+            caption: 合歡山
       - type: timeline_item
         icon: 🏕️
         name: 瓦拉米
         date: "2023-05-02"
-        pict: 20230502.jpg
-        text: 瓦拉米
+        children:
+          - type: figure
+            src: 20230502.jpg
+            caption: 瓦拉米
       - type: timeline_item
         icon: 🏕️
         name: 桶後越嶺
         date: "2023-04-03"
-        pict: 20230404.jpg
-        text: 桶後越嶺
+        children:
+          - type: figure
+            src: 20230404.jpg
+            caption: 桶後越嶺
       - type: timeline_item
         icon: 🏞️
         name: 阿里山
         date: "2022-08-10"
-        pict: 20220812.jpg
-        text: 阿里山
+        children:
+          - type: figure
+            src: 20220812.jpg
+            caption: 阿里山
       - type: timeline_item
         icon: 🏞️
         name: 花東之旅
         date: "2022-04-27"
-        pict: 20220429.jpg
-        text: 花東之旅
+        children:
+          - type: figure
+            src: 20220429.jpg
+            caption: 花東之旅
       - type: timeline_item
         icon: 👩‍❤️‍💋‍👨
+        name: 台北
+        date: "2022-03-05"

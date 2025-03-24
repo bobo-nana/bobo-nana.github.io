@@ -360,12 +360,32 @@ class FooterNode(Node):
 class PageNode(Node):
     def render(self, site: Site) -> str:
         title = self.attr.get("title")
-        authors = self.attr.get("authors", [])
-        tags = self.attr.get("tags", [])
 
-        authors = (", " if authors else "").join(authors)
-        tags = map(lambda tag: f"""<span class="badge rounded-pill text-bg-info">{tag}</span>""", tags)
-        tags = (" " if tags else "").join(tags)
+        if authors := self.attr.get("authors", []):
+            authors = ", ".join(authors)
+
+            html_authors = f"""
+                <span>
+                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    {authors}
+                </span>
+            """
+        else:
+            html_authors = ""
+
+        if tags := self.attr.get("tags"):
+            tags = " ".join(
+                f"<span class=\"badge rounded-pill text-bg-info\">{tag}</span>"
+                for tag in tags)
+
+            html_tags = f"""
+                <span class="ms-3">
+                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    {tags}
+                </span>
+            """
+        else:
+            html_tags = ""
 
         content = super().render(site)
 
@@ -373,15 +393,8 @@ class PageNode(Node):
             <h1>{title}</h1>
 
             <div class="mb-4">
-                <span>
-                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;"></i>
-                    {authors}
-                </span>
-
-                <span class="ms-3">
-                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;"></i>
-                    {tags}
-                </span>
+                {html_authors}
+                {html_tags}
             </div>
 
             {content}
@@ -495,6 +508,27 @@ class FigureNode(Node):
         return f"""
             <figure class="figure w-100 mb-3">
                 <img src="{src}" class="figure-img img-fluid w-100 rounded" alt="{caption}" />
+                <figcaption class="figure-caption">{caption}</figcaption>
+            </figure>"""
+
+
+@Node.register
+class VideoNode(Node):
+    def render(self, site: Site) -> str:
+        attr = self.attr
+        src = attr.get("src", "#")
+        caption = attr.get("caption", "")
+
+        # return f"""
+        #     <div class="ratio ratio-16x9 mb-3">
+        #         <iframe src="{src}" title="{caption}" frameborder="0" allowfullscreen></iframe>
+        #     </div>"""
+
+        return f"""
+            <figure class="figure w-100 mb-3">
+                <div class="ratio ratio-16x9">
+                    <iframe src="{src}" title="{caption}" frameborder="0" allowfullscreen></iframe>
+                </div>
                 <figcaption class="figure-caption">{caption}</figcaption>
             </figure>"""
 
