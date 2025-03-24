@@ -513,6 +513,27 @@ class FigureNode(Node):
 
 
 @Node.register
+class VideoNode(Node):
+    def render(self, site: Site) -> str:
+        attr = self.attr
+        src = attr.get("src", "#")
+        caption = attr.get("caption", "")
+
+        # return f"""
+        #     <div class="ratio ratio-16x9 mb-3">
+        #         <iframe src="{src}" title="{caption}" frameborder="0" allowfullscreen></iframe>
+        #     </div>"""
+
+        return f"""
+            <figure class="figure w-100 mb-3">
+                <div class="ratio ratio-16x9">
+                    <iframe src="{src}" title="{caption}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <figcaption class="figure-caption">{caption}</figcaption>
+            </figure>"""
+
+
+@Node.register
 class TimestampNode(Node):
     def render(self, site: Site) -> str:
         attr = self.attr
