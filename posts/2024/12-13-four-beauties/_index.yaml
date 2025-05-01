@@ -17,7 +17,7 @@ children:
         date: "2024-12-09"
         children:
           - type: p
-            text: 出發前先去倒垃報，倒完垃圾後又解開背包檢查一次，強迫症上身一覽無遺。
+            text: 出發前先去倒垃圾，倒完垃圾後又解開背包檢查一次，強迫症上身一覽無遺。
       - type: timeline_item
         icon: 🚌
         name: 南港轉運站
