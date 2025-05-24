@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html data-bs-theme="dark" lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-        <meta content="width=device-width, initial-scale=1" name="viewport"/>
-        <meta content="description" name="description"/>
-        <title>
-            Bobo & Nana
-        </title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
-        <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-        </script>
-        <style>
-            body {
+
+            <!DOCTYPE html>
+            <html lang="en" data-bs-theme="dark">
+                
+            <head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="description" content="description">
+
+                <title>離線地圖</title>
+
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                <style>
+                    body {
                         min-height: 75rem;
                         padding-top: 4.5rem;
                     }
@@ -62,74 +63,85 @@
                 align-items: center;
                 justify-content: center;
             }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar fixed-top navbar-expand-md bg-body-tertiary">
-            <div class="container w-75">
-                <a class="navbar-brand" href="/">
-                    Bobo & Nana
-                </a>
-                <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
-                    <span class="navbar-toggler-icon">
-                    </span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-                                Trekking
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="/trekking/offline-map/index.html">
-                                        離線地圖
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
-                                Timelines
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="/timelines/bobonana/index.html">
-                                        Bobo & Nana
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/about.html">
-                                About
-                            </a>
-                        </li>
-                    </ul>
+        
+                </style>
+            </head>
+        
+                <body>
+                
+            <nav class="navbar fixed-top navbar-expand-md bg-body-tertiary">
+                <div class="container w-75">
+
+                    <a class="navbar-brand" href="/">
+                        Bobo & Nana
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            
+                    <li class="nav-item dropdown">
+                        
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Trekking
+                    </a>
+                
+                        <ul class="dropdown-menu">
+                            
+                    <li><a class="dropdown-item" href="/trekking/offline-map/index.html">離線地圖</a></li>
+                    
+                        </ul>
+                    </li>
+                
+                    <li class="nav-item dropdown">
+                        
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Timelines
+                    </a>
+                
+                        <ul class="dropdown-menu">
+                            
+                    <li><a class="dropdown-item" href="/timelines/bobonana/index.html">Bobo & Nana</a></li>
+                    
+                        </ul>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about.html">About</a>
+                    </li>
+                    
+                        </ul>
+                    </div>
+
                 </div>
-            </div>
-        </nav>
-        <main class="container w-75">
-            <h1>
-                離線地圖
-            </h1>
+            </nav>
+        
+                <main class="container w-75">
+                    
+            <h1>離線地圖</h1>
+
             <div class="mb-4">
+                
                 <span>
-                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;">
-                    </i>
+                    <i class="bi bi-person" style="font-size: 1rem; color: cornflowerblue;"></i>
                     Ironhead
                 </span>
+            
+                
                 <span class="ms-3">
-                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;">
-                    </i>
-                    <span class="badge rounded-pill text-bg-info">
-                        100 mountains
-                    </span>
+                    <i class="bi bi-tags" style="font-size: 1rem; color: cornflowerblue;"></i>
+                    <span class="badge rounded-pill text-bg-info">100 mountains</span>
                 </span>
+            
             </div>
-            <h2 class="mb-2">
-                記錄
-            </h2>
-        </main>
-    </body>
-</html>
+
+            <h2 class="mb-2">記錄</h2>
+        
+                </main>
+                
+                </body>
+            </html>
+            
