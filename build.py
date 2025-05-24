@@ -184,7 +184,12 @@ class BaseNode(Node):
         self._html_path = data.get("root_path") / path
 
     def render(self, site: Site) -> str:
-        head = HeadNode("/", {}).render(site)
+        if self._children and self._children[0].attr.get("title"):
+            title = self._children[0].attr.get("title")
+        else:
+            title = site.get_attr("/site.html").get("name")
+
+        head = HeadNode("/", {"title": title}).render(site)
         header = HeaderNode("/", {}).render(site)
         footer = FooterNode("/", {}).render(site)
         content = "".join([child.render(site) for child in self._children])
@@ -262,6 +267,11 @@ class HeadNode(Node):
             }}
         """
 
+        title = self.attr.get(
+            "title",
+            site.get_attr("/site.html").get("name"),
+        )
+
         return f"""
             <head>
                 <meta charset="utf-8">
@@ -269,7 +279,7 @@ class HeadNode(Node):
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <meta name="description" content="description">
 
-                <title>{site.get_attr("/site.html").get("name")}</title>
+                <title>{title}</title>
 
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
