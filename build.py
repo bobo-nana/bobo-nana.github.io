@@ -134,7 +134,7 @@ class Node:
         text = re.sub(r"__(.*?)__", r"<i>\1</i>", text)
         text = re.sub(r"\*\*(.*?)\*\*", r"<b>\1</b>", text)
         text = re.sub(r"~~(.*?)~~", r"<s>\1</s>", text)
-        text = re.sub(r"\[(.*?)\]\((.*?)\)", r"<a href=\"\2\">\1</a>", text)
+        text = re.sub(r"\[(.*?)\]\((.*?)\)", r'<a href="\2">\1</a>', text)
 
         return text
 
