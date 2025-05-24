@@ -3,7 +3,6 @@ import itertools
 import pathlib
 import re
 
-import bs4
 import yaml
 
 
@@ -208,10 +207,6 @@ class BaseNode(Node):
             </html>
             """
         
-        html_formatter = bs4.formatter.HTMLFormatter(indent=4)
-
-        html = bs4.BeautifulSoup(html, "html.parser").prettify(formatter=html_formatter)
-
         with (self._html_path).open("w") as html_file:
             html_file.write(html)
 
